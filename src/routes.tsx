@@ -9,12 +9,13 @@ import OrphanageDetails from './pages/OrphanageDetails';
 
 import SelectMapPosition from './pages/CreateOrphanage/SelectMapPosition';
 import OrphanageData from './pages/CreateOrphanage/OrphanageData';
+import Header from './components/Header';
 
 
 export default function Routes() {
     return(
         <NavigationContainer>
-            <Navigator screenOptions={{ headerShown: false}}>
+            <Navigator screenOptions={{ headerShown: false, cardStyle: { backgroundColor: '#f2f3f5' } }}>
                 <Screen 
                     name="OrphanagesMap" 
                     component={OrphanagesMap} 
@@ -23,6 +24,10 @@ export default function Routes() {
                 <Screen 
                     name="OrphanageDetails" 
                     component={OrphanageDetails} 
+                    options={{
+                        headerShown: true,
+                        header: () => <Header title="Orfanato" />
+                    }}
                 />
 
                 <Screen 
