@@ -8,7 +8,7 @@ import { useRoute } from '@react-navigation/native';
 import mapMarkerImg from '../images/map-marker.png';
 import api from '../services/api';
 
-interface OrpanageDetailsRouteParams {
+interface OrphanageDetailsRouteParams {
     id: number;
 }
 
@@ -21,7 +21,7 @@ interface Orphanage {
     instructions: string;
     opening_hours: string;
     open_on_weekends: boolean;
-    image: Array<{
+    images: Array<{
         id: number;
         url: string;
     }>;
@@ -31,7 +31,7 @@ export default function OrphanageDetails() {
     const route = useRoute();
     const [orphanage, setOrphanage] = useState<Orphanage>();
 
-    const params = route.params as OrpanageDetailsRouteParams;
+    const params = route.params as OrphanageDetailsRouteParams;
 
     useEffect(() => {
         api.get(`orphanages/${params.id}`).then(response => {
@@ -51,9 +51,15 @@ export default function OrphanageDetails() {
     <ScrollView style={styles.container}>
       <View style={styles.imagesContainer}>
         <ScrollView horizontal pagingEnabled>
-          <Image style={styles.image} source={{ uri: 'https://fmnova.com.br/images/noticias/safe_image.jpg' }} />
-          <Image style={styles.image} source={{ uri: 'https://fmnova.com.br/images/noticias/safe_image.jpg' }} />
-          <Image style={styles.image} source={{ uri: 'https://fmnova.com.br/images/noticias/safe_image.jpg' }} />
+            {orphanage.images.map(image => {
+                return (
+                    <Image
+                        key={image.id}
+                        style={styles.image}
+                        source={{ uri: image.url }}
+                    />
+                );
+            })}
         </ScrollView>
       </View>
 
